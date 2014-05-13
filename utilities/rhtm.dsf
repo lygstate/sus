@@ -1,9 +1,9 @@
-<!-- Copyright 2001-2008 IEEE and The Open Group, All Rights Reserved -->
+<!-- Copyright 2001-2013 IEEE and The Open Group, All Rights Reserved -->
 %
 <center><font size="2">
 The Open Group Base Specifications Issue 7<br>
-IEEE Std 1003.1-2008<br>
-Copyright &copy; 2001-2008 The IEEE and The Open Group</font></center>
+IEEE Std 1003.1-2008, 2013 Edition<br>
+Copyright &copy; 2001-2013 The IEEE and The Open Group</font></center>
 <hr size="2" noshade>
 <a name="top"></a>
 %
@@ -12,7 +12,7 @@ Copyright &copy; 2001-2008 The IEEE and The Open Group</font></center>
 <hr size="2" noshade>
 <center><font size="2">UNIX &reg; is a registered Trademark of The Open Group.<br>
 POSIX &reg; is a registered Trademark of The IEEE.<br>
-Copyright &copy; 2001-2008 The IEEE and The Open Group, All Rights Reserved<br>
+Copyright &copy; 2001-2013 The IEEE and The Open Group, All Rights Reserved<br>
 [ <a href="../mindex.html">Main Index</a> | 
 <a href="../basedefs/contents.html">XBD</a> | 
 <a href="../functions/contents.html">XSH</a> | 

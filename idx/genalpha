@@ -2,6 +2,8 @@
 # Generage alphabetic index files ia.html, ib.html, etc.
 #
 # Geoff Clare, December 2008
+# Minor updates for 2013 edition - change year! AJJ March 2013
+# also change handling of topics as xbd has clause numbers
 
 PATH=$(getconf PATH) || exit 1
 
@@ -28,29 +30,29 @@ awk '/>NAME<\/h4>/,/>SYNOPSIS<\/h4>/ { in_name = 1 }
 	$0 = line
 	sub(/^<blockquote>/, "")
 	sub(/<\/blockquote>.*/, "")
-	func = FILENAME
-	sub(/\.html$/, "", func)
-	sub(/.*\//, "", func)
-	expr = "(^| )" func "(, | )"
+	fnc = FILENAME
+	sub(/\.html$/, "", fnc)
+	sub(/.*\//, "", fnc)
+	expr = "(^| )" fnc "(, | )"
 	sub(expr, " ")
-	if (func == "exec") { next }
-	if (func != "daylight" && \
-	    func != "environ" && \
-	    func != "errno" && \
-	    func != "getdate_err" && \
-	    func != "optarg" && \
-	    func != "opterr" && \
-	    func != "optind" && \
-	    func != "optopt" && \
-	    func != "signgam" && \
-	    func != "stderr" && \
-	    func != "stdin" && \
-	    func != "stdout" && \
-	    func != "timezone" && \
-	    func != "tzname") {
-		func = func "()"
+	if (fnc == "exec") { next }
+	if (fnc != "daylight" && \
+	    fnc != "environ" && \
+	    fnc != "errno" && \
+	    fnc != "getdate_err" && \
+	    fnc != "optarg" && \
+	    fnc != "opterr" && \
+	    fnc != "optind" && \
+	    fnc != "optopt" && \
+	    fnc != "signgam" && \
+	    fnc != "stderr" && \
+	    fnc != "stdin" && \
+	    fnc != "stdout" && \
+	    fnc != "timezone" && \
+	    fnc != "tzname") {
+		fnc = fnc "()"
 	}
-	sub(/^/, func ", ")
+	sub(/^/, fnc ", ")
 	sub(/,  /, ", ")
 	sub(/, -/, " -")
 	print
@@ -86,7 +88,7 @@ do (
 <html> 
 <head> 
 <link type="text/css" rel="stylesheet" href="style.css">
-<!-- Copyright 2008 The Open Group, All Rights Reserved --> 
+<!-- Copyright 2013 The Open Group, All Rights Reserved --> 
 <title>Alphabetical Index -' \
     "$upper" \
 '</title>
@@ -94,8 +96,8 @@ do (
 <body bgcolor=white>
 <basefont size="3"> <!--header start-->
 <center><font size="2">The Open Group Base Specifications Issue 7<br>
-IEEE Std 1003.1-2008<br>
-Copyright &copy; 2008 The IEEE and The Open Group, All Rights reserved.</font></center>
+IEEE Std 1003.1-2008, 2013 Edition<br>
+Copyright &copy; 2013 The IEEE and The Open Group, All Rights reserved.</font></center>
 
 <!--header end-->
 <hr size="2" noshade>'
@@ -171,7 +173,9 @@ Copyright &copy; 2008 The IEEE and The Open Group, All Rights reserved.</font></
 
     printf '%s\n\n%s\n\n%s\n' '</ul>' 'Topics' '<ul>'
 
-	sed -e "/^[^ ]* [$upper$lower]/!d" -e 's:\([^#]*\)#\([^ ]*\) \(.*\):<li type=disc><a href="../basedefs/\1.html#\2">\3</a></li>:' topics | sort -f -t\> -k 3
+	##sed -e "/^[^ ]* [$upper$lower]/!d" -e 's:\([^#]*\)#\([^ ]*\) \(.*\):<li type=disc><a href="../basedefs/\1.html#\2">\3</a></li>:' topics | sort -f -t\> -k 3
+	## modify for xbd with clause numbers
+	sed -e "/^.*<\/a>[$upper$lower]/!d" -e 's:\([^#]*\)#\([^ ]*>\) \([ 0-9\.]*<\/a>\)\(.*\):<li type=disc><a href="../basedefs/\1.html#\2\4</a></li>:' topics | sort -f -t\> -k 3
 
     printf '%s\n' '</ul>' '</body>' '</html>'
 
